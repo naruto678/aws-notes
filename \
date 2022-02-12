@@ -1,8 +1,7 @@
 #This contains all the notes for the aws-cloud-developer-associate
 
 
-# Lesson 2 
-    **Understanding EBS volumes**  
+## Lesson : Understanding EBS volumes 
 
     * Elastic block store
     * Storage volumes that you can attach to your ec2 instances 
@@ -186,24 +185,16 @@
     * Can only be done during the initialization 
     * what happens if you have to encrypt a already created db. 
       * Take a snapshot of the currrent db and then enable encryption in the new db . 
-      * Remember **the dns would change** so make sure you change it . 
-## Elasti Cache 
+      * Remember **the dns would change** so make sure you change it 
 
-      * Works like normal cache 
-        * memcached : very simple to use. no persistence or multi az deployments . 
-        * redis : has all of the ones that memcache is missing but lot more sophisticated. 
-      * Cannot be a possible solution/help if you have tons of write loads or you are doing olap queries 
-## Parameter Store : 
-      
-      * Store all the parameters and this needs to be passed to the aws resources  as a bootstrap script 
-      * Provides centralized config for secrets and parameters . 
 
-## EC2 instance types :
+## Elasti Cache : 
+    
+    * in memory cache. Improves db performance . Works like normal cache  
+    * Cant help if you are doing OLAP queries
+### Types 
+    
+    * memcached : sclaes horizontally but there is no multi az or failover. basic caching very simple to use 
+    * redis : has perisstence , multi az and has failover . can handle complex data types . more sophisticated 
 
-      * On-Deamand : Pay by the hour or second on the type of instance that you run  
-      * Reserved : Reserve capacity for upto 3 years . Great to use if you have fixed requirements . 72% discount on the hourly charge. 
-      * Spot : Purchase unused capacity for discount of 90%. Prices change with demand and supply . Can be useful when the app has flexible start and the end times. 
-        * And if you exceed the tier it gets automatically stopped  
-      * Reserved Instances : a physical ec2 server . This is used when you have server-bound licenses to reuse or compliance requirements
-      * Dedicated instances :  has its own dedicated hardware , solely belonging to the customer and they do not share resources with anyone else 
 
