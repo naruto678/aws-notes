@@ -113,8 +113,9 @@
   
 
   **Can be used when you get some timeout errors** 
-  aws [options] <command> <subcommand> --page-size=100 
-  aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
+###Commands 
+  * aws [options] <command> <subcommand> --page-size=100 
+  * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
   
 ##Important things about IAm roles 
 * secure way to grant permissions to entity that you can trust 
@@ -123,7 +124,15 @@
   * could be used with  code running on a ec2 instance that nneds to perform some actions on aws resource 
   * coudl be a aws managed service that might need to use that aws resouce 
   * users from corporate directory that use identity federation like SAML
+  * Web Identitiy like openid 
 
+
+Example policy 
+ {
+  "Effect" : "Allow" , 
+  "Action" : "s3", 
+  "Resource : "*"
+ }
 
 
 
