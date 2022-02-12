@@ -122,16 +122,14 @@
   * could be used with  code running on a ec2 instance that nneds to perform some actions on aws resource 
   * coudl be a aws managed service that might need to use that aws resouce 
   * users from corporate directory that use identity federation like SAML
-  * Web Identitiy like openid 
-
-
-Example policy 
+  * Web Identitiy like open 
+  * `json  
  {
   "Effect" : "Allow" , 
   "Action" : "s3", 
   "Resource : "*"
  }
-
+`
 
 
   
