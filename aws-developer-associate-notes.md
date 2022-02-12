@@ -1,14 +1,14 @@
 #This contains all the notes for the aws-cloud-developer-associate
 
 
-##Lesson : Understanding EBS volumes 
+## Lesson : Understanding EBS volumes 
 --
 
   1. Elastic block store
   2. Storage volumes that you can attach to your ec2 instances 
   3. Think like it is a disc. Each ec2 instance by default comes with a default ebs volume and it is this volume where your os would be installed. And 
       you can add extra. Use them as you would any system disk. works like a file system 
-###Feautures: 
+### Feautures: 
     *designed for mission critical production workloads*  
     highly available -- when you provision a ebs volume it will be automatically replicated within a single AZ which protects against hardware failures 
     scalable - dynamically increase the capacity and also change the type of ebs volume without any downtime 
@@ -42,7 +42,7 @@
         uses EBS block architecture . provides 4 times the throughput and capacity of normal io- above 
         useful for oracle , ms-sql server, usefule for mission critical applications 
 
-###Througput optimized HDD: 
+### Througput optimized HDD: 
       1. **st1** 
         low-cost hdd . for storing huge amounts of data but we want to access the data frequently . measured in mb/s/terabyte . 
         40MB/s per TB with max of 500MB/s per volume 
@@ -55,18 +55,18 @@
           cannot be a boot volume 
       1. Magnetic standard is the oldeest (legacy ) 
 
-###IOPS vs throghput 
+### IOPS vs throghput 
   1. Measures the number of read /write ops per secs . eg-low latency appliations, db-applications 
     vs measure the number of bytes read or written per second . important metric for large datasets , large I/O sizes , complex queries 
     . the ability to deal with large datasets. 
 
-###Practical: 
+### Practical: 
   1. You can actually create a volume based on a snapshot(point of time copy for an older volume ) . 
   Volumes created from encrypted snapshots would be encrypted and vice-versa for non-encrypted ones 
 
 ## Elastic Load balancer 
 
-###Types
+### Types
 1. **Application load balancer** 
   * balances http and https
   * layer 7 os model 
@@ -110,12 +110,12 @@
   for ex: if the number of objects is more than 1000, then the cli internally makes multiple api calls and shows the output in one go 
   but sometimes can cause errors . could be used like this 
 
-###Commands
+### Commands
   * Can be used when you get the time out errors . Try changin the number of items that are getting returned  
   * aws [options] <command> <subcommand> --page-size=100 
   * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
   
-##Important things about IAm roles 
+## Important things about IAm roles 
 * secure way to grant permissions to entity that you can trust 
 * Examples of their usage  
   * could be a iam user in another account 
