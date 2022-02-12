@@ -131,5 +131,36 @@
  }
 `
 
+## Relational dbs 
+* Aurora . more performant than sql server and posgres . 
+* Redshift is for data-wareshousing and  OLAP workloads .
+### RDS demo 
+* We can also use security groups instead of having cidr block ranges whicle connecting to a rds instance from a ec2 instance
+  * considerign both the rds and the ec2 are in the same vpc and rds then add to the inbound rules the security group for the ec2 instance 
+    and you should be able to connect to the rds instance using a sql client . 
+### RDS multi-az deployments and read replicas
+* multi az used for disaster recovery 
+* read only copy of your primary db . could be anywhere. Can be used for scaling 
+### RDS backups and snapshots 
+* Database-snapshots : point in time copy of the storage volume 
+* automated backup : enabled by default . Also generates transaction logs which can be used to replay transactions 
+#### automated backup 
+* Perform a point in time recover within a defined retention period. It performs daily backups and and also has transaction logs. 
+  During a recovery , aws selects the recent backup and aws replays the transaction logs 
+* They are stored in S3. both manual and automatic
+* will be done in the defined window
+* Storage I/O may be suspened for a few seconds . Latency might increse for a few seconds 
+#### database backups
+* manual and initiated by the user . 
+* They enable to backup to a specifi state  
+* no retention period 
+* stays even if the original db is removed 
 
-  
+### Encryption 
+* is done with kms and doen with aes-256 . 
+* rds is going to encrypt all of the underlying storage including all the backups and read replicas 
+* Can only be done during the initialization 
+* what happens if you have to encrypt a already created db. 
+  * Take a snapshot of the currrent db and then enable encryption in the new db . 
+  * Remember **the dns would change** so make sure you change it . 
+
