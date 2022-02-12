@@ -2,16 +2,17 @@
 
 
 ## Lesson : Understanding EBS volumes 
---
 
-  1. Elastic block store
-  2. Storage volumes that you can attach to your ec2 instances 
-  3. Think like it is a disc. Each ec2 instance by default comes with a default ebs volume and it is this volume where your os would be installed. And 
-      you can add extra. Use them as you would any system disk. works like a file system 
-### Feautures : 
-    *designed for mission critical production workloads*  
-    highly available -- when you provision a ebs volume it will be automatically replicated within a single AZ which protects against hardware failures 
-    scalable - dynamically increase the capacity and also change the type of ebs volume without any downtime 
+    * Elastic block store
+    * Storage volumes that you can attach to your ec2 instances 
+    * Think like it is a disc. Each ec2 instance by default comes with a default ebs volume and it is this volume where your os would be installed. 
+    * And you can add extra.Use them as you would any system disk. works like a file system 
+
+### Feautures :
+
+    * designed for mission critical production workloads  
+    * highly available -- when you provision a ebs volume it will be automatically replicated within a single AZ which protects against hardware failures 
+    * scalable - dynamically increase the capacity and also change the type of ebs volume without any downtime 
 
 ###  Different options : 
     1. **General purpuse ssd -gp2** 
@@ -43,7 +44,8 @@
         useful for oracle , ms-sql server, usefule for mission critical applications 
 
 ### Througput optimized HDD : 
-      1. **st1** 
+     
+      1.  **st1** 
         low-cost hdd . for storing huge amounts of data but we want to access the data frequently . measured in mb/s/terabyte . 
         40MB/s per TB with max of 500MB/s per volume 
         frequenly accesses ,big-data , etl and log-processing . cost effective way to store mountains of data . Cannot be a boot volume.
@@ -55,112 +57,133 @@
           cannot be a boot volume 
       1. Magnetic standard is the oldeest (legacy ) 
 
-### IOPS vs throghput :  
-  1. Measures the number of read /write ops per secs . eg-low latency appliations, db-applications 
-    vs measure the number of bytes read or written per second . important metric for large datasets , large I/O sizes , complex queries 
-    . the ability to deal with large datasets. 
 
-### Practical : 
-  1. You can actually create a volume based on a snapshot(point of time copy for an older volume ) . 
-  Volumes created from encrypted snapshots would be encrypted and vice-versa for non-encrypted ones 
+### IOPS vs throghput :
+    
+    *  Measures the number of read /write ops per secs . eg-low latency appliations, db-applications 
+      vs measure the number of bytes read or written per second . important metric for large datasets , large I/O sizes , complex queries 
+     the ability to deal with large datasets. 
+
+### Practical :
+
+    1. You can actually create a volume based on a snapshot(point of time copy for an older volume ) . 
+    Volumes created from encrypted snapshots would be encrypted and vice-versa for non-encrypted ones 
 
 ## Elastic Load balancer : 
 
 ### Types : 
-1. **Application load balancer** 
-  * balances http and https
-  * layer 7 os model 
-  * Support advanced request routing . that means that you can route traffic based on the http-header 
-2. **Network Load balancer** 
-  * tcp and high performance
-  * use for balancing tcp traffic when high performance is needed 
-  * layer 4 of osi model 
-  * capable of handling millions of second while maitaining lowest latency 
-  * most expensive 
-3. **Classic** 
-  * legacy . Does both https and tcp 
-  * supports x-Forwared-For headers and sticky sessions 
-  * Does also support layer 4 which 
-    * X-forwared for allows you to identify the ip addr of the original client trying to connect . Can be used to block by region . 
-    * Or can be used to check if that is the region where we are allowed to operate 
-  * 504 gateway timeout . Means that the application underneath the loadbalancer is down or failiing . 
-4. **Gateway** 
-  allows you to balance workloads for 3rd party virtual appliances. such as those applications purchased on marketplace 
+
+    1. **Application load balancer**
+
+          * balances http and https
+          * layer 7 os model 
+          * Support advanced request routing . that means that you can route traffic based on the http-header 
+
+    2. **Network Load balancer** 
+        * tcp and high performance
+        * use for balancing tcp traffic when high performance is needed 
+        * layer 4 of osi model 
+        * capable of handling millions of second while maitaining lowest latency 
+        * most expensive 
+
+    3. **Classic** 
+          * legacy . Does both https and tcp 
+          * supports x-Forwared-For headers and sticky sessions 
+          * Does also support layer 4 which 
+            * X-forwared for allows you to identify the ip addr of the original client trying to connect . Can be used to block by region . 
+            * Or can be used to check if that is the region where we are allowed to operate 
+          * 504 gateway timeout . Means that the application underneath the loadbalancer is down or failiing . 
+    4. **Gateway** 
+        allows you to balance workloads for 3rd party virtual appliances. such as those applications purchased on marketplace 
   
 
 
-### Route 53 
-* Allows you to map the domain name that I own to the followiing
-  * EC2 Instance
-  * Load balancers 
-  * S3 buckets 
-####Practical learning 4: 
-*  **Try doing a route 53 with alb and should connect to a ec2 instance that has apache http d running**  
+### Route 53
+
+    * Allows you to map the domain name that I own to the followiing
+      * EC2 Instance
+      * Load balancers 
+      * S3 buckets 
+####    Practical learning 4:
+
+    *  **Try doing a route 53 with alb and should connect to a ec2 instance that has apache http d running**  
 
 
 ### Practical 
-* Interacting with s3 with cli 
-  aws s3 ls 
-  aws s3 mb s3://some-bucket-name  <!-- create bucket with some name that is globally unique --!>
-  aws s3 cp hello.txt s3://some-bucket-name 
-  aws s3 ls s3://some-bucket-name  <!-- wouldlist all the contents of the bucket and the input.txt file should be there --!>
-* Pagination
-  control the number of items that is returned in the output of the aws cli. Default 
-  item number is 1000. 
-  for ex: if the number of objects is more than 1000, then the cli internally makes multiple api calls and shows the output in one go 
-  but sometimes can cause errors . could be used like this 
+
+    * Interacting with s3 with cli 
+      aws s3 ls 
+      aws s3 mb s3://some-bucket-name  <!-- create bucket with some name that is globally unique --!>
+      aws s3 cp hello.txt s3://some-bucket-name 
+      aws s3 ls s3://some-bucket-name  <!-- wouldlist all the contents of the bucket and the input.txt file should be there --!>
+    * Pagination
+      control the number of items that is returned in the output of the aws cli. Default 
+      item number is 1000. 
+      for ex: if the number of objects is more than 1000, then the cli internally makes multiple api calls and shows the output in one go 
+      but sometimes can cause errors . could be used like this 
 
 ### Commands
-  * Can be used when you get the time out errors . Try changin the number of items that are getting returned  
-  * aws [options] <command> <subcommand> --page-size=100 
-  * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
-  
+
+    * Can be used when you get the time out errors . Try changin the number of items that are getting returned  
+    * aws [options] <command> <subcommand> --page-size=100 
+    * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
+    
 ## Important things about IAm roles 
-* secure way to grant permissions to entity that you can trust 
-* Examples of their usage  
-  * could be a iam user in another account 
-  * could be used with  code running on a ec2 instance that nneds to perform some actions on aws resource 
-  * coudl be a aws managed service that might need to use that aws resouce 
-  * users from corporate directory that use identity federation like SAML
-  * Web Identitiy like openId 
-  * ` 
- {
-  "Effect" : "Allow" , 
-  "Action" : "s3", 
-  "Resource : "*"
- }
-`
+
+    * secure way to grant permissions to entity that you can trust 
+    * Examples of their usage  
+      * could be a iam user in another account 
+      * could be used with  code running on a ec2 instance that nneds to perform some actions on aws resource 
+      * coudl be a aws managed service that might need to use that aws resouce 
+      * users from corporate directory that use identity federation like SAML
+      * Web Identitiy like openId 
+      * ` 
+     {
+      "Effect" : "Allow" , 
+      "Action" : "s3", 
+      "Resource : "*"
+     }
+    `
 
 ## Relational dbs 
-* Aurora . more performant than sql server and posgres . 
-* Redshift is for data-wareshousing and  OLAP workloads .
+
+    * Aurora . more performant than sql server and posgres . 
+    * Redshift is for data-wareshousing and  OLAP workloads .
 ### RDS demo 
-* We can also use security groups instead of having cidr block ranges whicle connecting to a rds instance from a ec2 instance
-  * considerign both the rds and the ec2 are in the same vpc and rds then add to the inbound rules the security group for the ec2 instance 
-    and you should be able to connect to the rds instance using a sql client . 
+
+    * We can also use security groups instead of having cidr block ranges whicle connecting to a rds instance from a ec2 instance
+      * considerign both the rds and the ec2 are in the same vpc and rds then add to the inbound rules the security group for the ec2 instance 
+        and you should be able to connect to the rds instance using a sql client . 
 ### RDS multi-az deployments and read replicas
-* multi az used for disaster recovery 
-* read only copy of your primary db . could be anywhere. Can be used for scaling 
+
+    * multi az used for disaster recovery 
+    * read only copy of your primary db . could be anywhere. Can be used for scaling 
+
 ### RDS backups and snapshots 
-* Database-snapshots : point in time copy of the storage volume 
-* automated backup : enabled by default . Also generates transaction logs which can be used to replay transactions 
+
+    * Database-snapshots : point in time copy of the storage volume 
+    * automated backup : enabled by default . Also generates transaction logs which can be used to replay transactions 
+
 #### automated backup 
-* Perform a point in time recover within a defined retention period. It performs daily backups and and also has transaction logs. 
-  During a recovery , aws selects the recent backup and aws replays the transaction logs 
-* They are stored in S3. both manual and automatic
-* will be done in the defined window
-* Storage I/O may be suspened for a few seconds . Latency might increse for a few seconds 
+
+    * Perform a point in time recover within a defined retention period. It performs daily backups and and also has transaction logs. 
+      During a recovery , aws selects the recent backup and aws replays the transaction logs 
+    * They are stored in S3. both manual and automatic
+    * will be done in the defined window
+    * Storage I/O may be suspened for a few seconds . Latency might increse for a few seconds 
 #### database backups
-* manual and initiated by the user . 
-* They enable to backup to a specifi state  
-* no retention period 
-* stays even if the original db is removed 
+    
+    * manual and initiated by the user . 
+    * They enable to backup to a specifi state  
+    * no retention period 
+    * stays even if the original db is removed 
 
 ### Encryption 
-* is done with kms and doen with aes-256 . 
-* rds is going to encrypt all of the underlying storage including all the backups and read replicas 
-* Can only be done during the initialization 
-* what happens if you have to encrypt a already created db. 
-  * Take a snapshot of the currrent db and then enable encryption in the new db . 
-  * Remember **the dns would change** so make sure you change it . 
+    
+    * is done with kms and doen with aes-256 . 
+    * rds is going to encrypt all of the underlying storage including all the backups and read replicas 
+    * Can only be done during the initialization 
+    * what happens if you have to encrypt a already created db. 
+      * Take a snapshot of the currrent db and then enable encryption in the new db . 
+      * Remember **the dns would change** so make sure you change it . 
 
