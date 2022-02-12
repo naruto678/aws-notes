@@ -123,7 +123,7 @@
   * coudl be a aws managed service that might need to use that aws resouce 
   * users from corporate directory that use identity federation like SAML
   * Web Identitiy like open 
-  * `json  
+  * ` 
  {
   "Effect" : "Allow" , 
   "Action" : "s3", 
