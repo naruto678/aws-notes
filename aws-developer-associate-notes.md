@@ -302,6 +302,17 @@ ___
 - x-amz-server-side-encryption : ams:kms ( uses sse-kms) 
 - Can also be done with bucket policy  by adding the followign condition in the  bucket policy  deny aws:SecureTransport : false
 ___
+
 ### Cloudfront 
-- amazon's cloud front  
--
+
+- amazon's cdn 
+- Cloud front edge location : This is the location where the contnet is cached
+- Cloud front origin : This is the origin of all the files from which the files would come 
+- Cloud front distribution : this is the name given to the origin and the configuration settings for the content we wish to distribute 
+- Optimzed to work with other aws services and also works with your own server 
+- TTL(time to live ) is 1 day . Object is automatically cleared from the cache . would be charged if you want to clear it before . And also can be used with __S3 transfer acceleration__ . Enables fast and secure transfer of files 
+- Edge locations are not __only read but write as well__ 
+- __S3TransferAcceleration__:
+  - When enabled users instead of uploading/downloading files to/from s3 will be doing it to the edge location and then the edge location uploads it optimally . Much faster
+
+
