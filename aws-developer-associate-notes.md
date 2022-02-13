@@ -125,9 +125,8 @@ allows you to balance workloads for 3rd party virtual appliances. such as those 
   for ex: if the number of objects is more than 1000, then the cli internally makes multiple api calls and shows the output in one go 
       but sometimes can cause errors . could be used like this 
 
-### Commands
-
-*Can be used when you get the time out errors . Try changin the number of items that are getting returned
+###Commands
+* Can be used when you get the time out errors . Try changin the number of items that are getting returned
   * aws [options] <command> <subcommand> --page-size=100 
   * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
 
