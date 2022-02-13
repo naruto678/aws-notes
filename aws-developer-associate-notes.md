@@ -125,7 +125,7 @@ allows you to balance workloads for 3rd party virtual appliances. such as those 
   for ex: if the number of objects is more than 1000, then the cli internally makes multiple api calls and shows the output in one go 
       but sometimes can cause errors . could be used like this 
 
-###Commands
+### Commands
 * Can be used when you get the time out errors . Try changin the number of items that are getting returned
   * aws [options] <command> <subcommand> --page-size=100 
   * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
@@ -223,6 +223,7 @@ __For the infrequent access a fee will apply for the retrietval in-addition to s
 - Go to the hosted zone and create the new record. in the record set up the route between the record name and the application load balancer or the application directly 
 - Also make sure if you are using the applicaiton load balancer . It is acceptiing requests in port 80 so do not forget to add a new group 
 ___
+
 ### Chapter 4 
 
 ### S3 
@@ -288,7 +289,8 @@ __S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archiv
 __S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest__
 __For the infrequent access a fee will apply for the retrietval in-addition to storage__
 
- 
+___
+
 ### S3 Encryption 
 - Encryption in transit . this is done automatically by ssl/tls 
 - Encryption at rest. 
@@ -299,4 +301,7 @@ __For the infrequent access a fee will apply for the retrietval in-addition to s
 - x-amz-server-side-encryption  : AES257 (SSE-s3 managed keys)
 - x-amz-server-side-encryption : ams:kms ( uses sse-kms) 
 - Can also be done with bucket policy  by adding the followign condition in the  bucket policy  deny aws:SecureTransport : false
-
+___
+### Cloudfront 
+- amazon's cloud front  
+-
