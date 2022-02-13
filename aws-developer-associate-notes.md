@@ -70,9 +70,9 @@
     1. You can actually create a volume based on a snapshot(point of time copy for an older volume ) . 
     Volumes created from encrypted snapshots would be encrypted and vice-versa for non-encrypted ones 
 
-## Elastic Load balancer : 
+## Elastic Load balancer 
 
-### Types : 
+### Types 
 
     1. **Application load balancer**
 
@@ -81,22 +81,23 @@
           * Support advanced request routing . that means that you can route traffic based on the http-header 
 
     2. **Network Load balancer** 
-        * tcp and high performance
-        * use for balancing tcp traffic when high performance is needed 
-        * layer 4 of osi model 
-        * capable of handling millions of second while maitaining lowest latency 
-        * most expensive 
+            
+            * tcp and high performance
+            * use for balancing tcp traffic when high performance is needed 
+            * layer 4 of osi model 
+            * capable of handling millions of second while maitaining lowest latency 
+            * most expensive 
 
-    3. **Classic** 
-          * legacy . Does both https and tcp 
-          * supports x-Forwared-For headers and sticky sessions 
-          * Does also support layer 4 which 
-            * X-forwared for allows you to identify the ip addr of the original client trying to connect . Can be used to block by region . 
-            * Or can be used to check if that is the region where we are allowed to operate 
-          * 504 gateway timeout . Means that the application underneath the loadbalancer is down or failiing . 
-    4. **Gateway** 
+    3. **Classic**
+
+            * legacy . Does both https and tcp 
+            * supports x-Forwared-For headers and sticky sessions 
+            * Does also support layer 4 which 
+              * X-forwared for allows you to identify the ip addr of the original client trying to connect . Can be used to block by region . 
+              * Or can be used to check if that is the region where we are allowed to operate 
+            * 504 gateway timeout . Means that the application underneath the loadbalancer is down or failiing . 
+      4. **Gateway** 
         allows you to balance workloads for 3rd party virtual appliances. such as those applications purchased on marketplace 
-  
 
 
 ### Route 53
@@ -105,9 +106,10 @@
       * EC2 Instance
       * Load balancers 
       * S3 buckets 
-####    Practical learning 4:
+###    Practical learning 4:
 
-    *  **Try doing a route 53 with alb and should connect to a ec2 instance that has apache http d running**  
+
+      *  Try doing a route 53 with alb and should connect to a ec2 instance that has apache http d running 
 
 
 ### Practical 
@@ -187,18 +189,19 @@
     * what happens if you have to encrypt a already created db. 
       * Take a snapshot of the currrent db and then enable encryption in the new db . 
       * Remember **the dns would change** so make sure you change it . 
-## Elasti Cache 
+
+### Elasti Cache 
 
       * Works like normal cache 
         * memcached : very simple to use. no persistence or multi az deployments . 
         * redis : has all of the ones that memcache is missing but lot more sophisticated. 
       * Cannot be a possible solution/help if you have tons of write loads or you are doing olap queries 
-## Parameter Store : 
-      
+### Parameter Store : 
+
       * Store all the parameters and this needs to be passed to the aws resources  as a bootstrap script 
       * Provides centralized config for secrets and parameters . 
 
-## EC2 instance types :
+### EC2 instance types :
 
       * On-Deamand : Pay by the hour or second on the type of instance that you run  
       * Reserved : Reserve capacity for upto 3 years . Great to use if you have fixed requirements . 72% discount on the hourly charge. 
@@ -209,10 +212,10 @@
 
 ---
 
-## Steps for setting up route 53 :
+### Steps for setting up route 53 :
 
-**S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
-**For the infrequent access a fee will apply for the retrietval in-addition to storage **
+    S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest pricing
+    For the infrequent access a fee will apply for the retrietval in-addition to storage 
 
 
     - launch an ec2 instance that runs httpd 
@@ -220,9 +223,9 @@
     - Go to the hosted zone and create the new record. in the record set up the route between the record name and the application load balancer or the application directly 
     - Also make sure if you are using the applicaiton load balancer . It is acceptiing requests in port 80 so do not forget to add a new group 
 
-# Chapter 4 : 
+### Chapter 4 
 
-## S3 
+### S3 
 
       - number of objects that you can store are unlimited . Objects can be of max of 5 TB
       - all AWS accounts share the s3 namespace . Each bucket must be globally unique 
@@ -236,7 +239,7 @@
       - Also has bucket policies that can be added to users. 
       - Not suitable for running a operating system or db 
 
-## S3 Storage classes 
+### S3 Storage classes 
 
       - S3 Standard
       - S3 Standard Infrequent access 
@@ -244,12 +247,14 @@
       - S3 Glacier and S3 Galcier deep archive 
       - Intelligent tiering 
       - Relative costs 
+
 ### S3 standard 
 
       - high availability and durability . Data is stored redundantly across multiple A-Z's (>=3A'Z) 99.99% availability and 11'9s of durability 
       - Designed for frequent access 
       - Website , Content-distribution and content analytics 
       - Default 
+
 ### S3 Standard - Infrequent Access 
 
           - Rapid access
@@ -283,3 +288,19 @@
         -   bucket access contorl list -- Bucket ACL's . happens at the object level . Provides fine-grained control to your objects 
         -   Also provides s3 access logs . - >Logs are writeten to another s3 bucket 
 
+**S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
+**For the infrequent access a fee will apply for the retrietval in-addition to storage **
+
+ 
+### S3 Encryption 
+
+
+      - Encryption in transit . this is done automatically by ssl/tls 
+      - Encryption at rest. 
+        - SSE-S3 encrypt with s3 managed keys. The key itself is encrypted 
+        - SSE-KMS gives additionals key known as 
+        - SSE-C Customer provideed keys 
+        - Client side encryption 
+        - x-amz-server-side-encryption  : AES257 (SSE-s3 managed keys)
+        - x-amz-server-side-encryption : ams:kms ( uses sse-kms) 
+        - Can also be done with bucket policy  by adding the followign condition in the  bucket policy  deny aws:SecureTransport : false
