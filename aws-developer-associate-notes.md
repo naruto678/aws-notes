@@ -211,6 +211,10 @@
 
 ## Steps for setting up route 53 :
 
+**S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
+**For the infrequent access a fee will apply for the retrietval in-addition to storage **
+
+
     - launch an ec2 instance that runs httpd 
     - **Hosted-zone** : This is a way to map your domain names to the ec2 instance, alb's or s3 buckets : 
     - Go to the hosted zone and create the new record. in the record set up the route between the record name and the application load balancer or the application directly 
@@ -254,7 +258,7 @@
           - same availability and durability
           - stored in single AZ . Costs you 20% less than s3 standard 
 
-### 2 Glacier options
+### Glacier options
 
         - Very cheap . 
         - Good for historical data 
@@ -263,17 +267,19 @@
 
 ### Intelligent tiering 
 
-    1. Gets you 2 tiers. S3 will move your object to the respective tier depending on the frequency with which you access your objects
-     
+        - Gets you 2 tiers. S3 will move your object to the respective tier depending on the frequency with which you access your objects
+         
 
-     **S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
+         **S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
 
-     **For the infrequent access a fee will apply for the retrietval in-addition to storage **
+         **For the infrequent access a fee will apply for the retrietval in-addition to storage **
 
 
-# Important points 
--   private by default . Only bucket owner can see . 
--   if you want it to be accessed by public then we would need to use bucket policies . Applies at the bucket level 
--   bucket access contorl list -- Bucket ACL's . happens at the object level . Provides fine-grained control to your objects 
--   Also provides s3 access logs . - >Logs are writeten to another s3 bucket 
+### Important points 
+    
+
+        -   private by default . Only bucket owner can see . 
+        -   if you want it to be accessed by public then we would need to use bucket policies . Applies at the bucket level 
+        -   bucket access contorl list -- Bucket ACL's . happens at the object level . Provides fine-grained control to your objects 
+        -   Also provides s3 access logs . - >Logs are writeten to another s3 bucket 
 
