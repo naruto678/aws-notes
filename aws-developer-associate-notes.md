@@ -207,3 +207,63 @@
       * Reserved Instances : a physical ec2 server . This is used when you have server-bound licenses to reuse or compliance requirements
       * Dedicated instances :  has its own dedicated hardware , solely belonging to the customer and they do not share resources with anyone else 
 
+---
+
+## Steps for setting up route 53 :
+
+    - launch an ec2 instance that runs httpd 
+    - **Hosted-zone** : This is a way to map your domain names to the ec2 instance, alb's or s3 buckets : 
+    - Go to the hosted zone and create the new record. in the record set up the route between the record name and the application load balancer or the application directly 
+    - Also make sure if you are using the applicaiton load balancer . It is acceptiing requests in port 80 so do not forget to add a new group 
+
+# Chapter 4 : 
+
+## S3 
+
+      - number of objects that you can store are unlimited . Objects can be of max of 5 TB
+      - all AWS accounts share the s3 namespace . Each bucket must be globally unique 
+      - Each object corresponds to a key-value store. Key is the name and value is the object . Also sometimes there could be a version id 
+      - It is highly available and highly durable . Built for 99.95%-99.99%  availability and there is 11 9's of durability 
+      - Lifecycle management and versioning is allowed on a file
+      - Secure your data with server-side Encryption. 
+          This means you can set up default encryption on  a bucket and that would encrypt all the new objects athat are stored in the bucket 
+      - Also has ACL which allows which aws accounts or groups are granted access and the type of access . Can be attached to individual objects 
+      - Offers tiered storage 
+      - Also has bucket policies that can be added to users. 
+      - Not suitable for running a operating system or db 
+
+## S3 Storage classes 
+
+      - S3 Standard
+      - S3 Standard Infrequent access 
+      - S3 One-zone infrequent acces 
+      - S3 Glacier and S3 Galcier deep archive 
+      - Intelligent tiering 
+      - Relative costs 
+### S3 standard 
+
+      - high availability and durability . Data is stored redundantly across multiple A-Z's (>=3A'Z) 99.99% availability and 11'9s of durability 
+      - Designed for frequent access 
+      - Website , Content-distribution and content analytics 
+      - Default 
+### S3 Standard - Infrequent Access 
+
+          - Rapid access
+          - Pay to access the data 
+          - minimum storage duration of 30 days 
+          - same availability and durability
+          - stored in single AZ . Costs you 20% less than s3 standard 
+### 2 Glacier options
+
+        - Very cheap . 
+        - Good for historical data 
+        - 90 days minimum storage for archive  and 120 days min for deep archive 
+        - same availability and durability
+### Intelligent tiering 
+    - Gets you 2 tiers. S3 will move your object to the respective tier depending on the frequency with which you access your objects
+
+
+**S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
+**For the infrequent access a fee will apply for the retrietval in-addition to storage **
+
+
