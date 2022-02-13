@@ -127,10 +127,10 @@ allows you to balance workloads for 3rd party virtual appliances. such as those 
 
 ### Commands
 
-* Can be used when you get the time out errors . Try changin the number of items that are getting returned  
-    * aws [options] <command> <subcommand> --page-size=100 
-    * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
-    
+*Can be used when you get the time out errors . Try changin the number of items that are getting returned
+  * aws [options] <command> <subcommand> --page-size=100 
+  * aws [options] <command> <subcommand> --max-items=100  <!--return max of 100 items --!>
+
 ## Important things about IAm roles 
 
 * secure way to grant permissions to entity that you can trust 
