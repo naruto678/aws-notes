@@ -253,17 +253,27 @@
           - minimum storage duration of 30 days 
           - same availability and durability
           - stored in single AZ . Costs you 20% less than s3 standard 
+
 ### 2 Glacier options
 
         - Very cheap . 
         - Good for historical data 
         - 90 days minimum storage for archive  and 120 days min for deep archive 
         - same availability and durability
+
 ### Intelligent tiering 
-    - Gets you 2 tiers. S3 will move your object to the respective tier depending on the frequency with which you access your objects
+
+    1. Gets you 2 tiers. S3 will move your object to the respective tier depending on the frequency with which you access your objects
+     
+
+     **S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
+
+     **For the infrequent access a fee will apply for the retrietval in-addition to storage **
 
 
-**S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archive is the smallest **
-**For the infrequent access a fee will apply for the retrietval in-addition to storage **
-
+# Important points 
+-   private by default . Only bucket owner can see . 
+-   if you want it to be accessed by public then we would need to use bucket policies . Applies at the bucket level 
+-   bucket access contorl list -- Bucket ACL's . happens at the object level . Provides fine-grained control to your objects 
+-   Also provides s3 access logs . - >Logs are writeten to another s3 bucket 
 
