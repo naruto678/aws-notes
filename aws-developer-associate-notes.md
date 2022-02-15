@@ -352,3 +352,18 @@ ___
 - Orchestratoin of your serverless applications 
 - Manage the logic of your application including sequencing , error handling and retry logic , so your application executes in order , and as expected 
 - Also logs every step . Easy to debug 
+#### Different types of workflows : 
+- Standard workflows: 
+  - Long running , durable , auditable workflows that may run for up to a year . Full execution history is available up to 90 days 
+  - At most once model : Tasks are never executed more than once unless you explicitly specify retry actions 
+  - Non -idempotent actions: Actions that can cause a change in state 
+- Express workflows: 
+  - Great for high-volume , event-processing-type workloads 
+  - At least once . Ideal if there is a  possiblility that an execution might be run more than once or you require concurrent executions 
+  - Idempotent : For example transforming an input data and storing that in dynamo db 
+  - Identical request : eg - reading data from an S3 bucket 
+  - Two types: 
+    - Synchronous workflows 
+    - Asynchronous workflows 
+### X-Ray 
+-  
