@@ -343,4 +343,12 @@ ___
 - Lambda concurrent execution limit :
   - There is a limit to the number of concurrent executions across all the functions in a given region per account . 1000 concurrent execution is the limit 
   - Contact aws support to increase the limit 
-  - you get 429 http error 
+  - you get 429 http error  . Invocations will start getting rejected 
+### Lambdas and VPC: 
+-  It is possible to enable lambda to access resources which are inside a private  vpc. Lambda uses the vpc information to set up ENI (Elastic network interfaces ) using an IP 
+  -from the private subnet CIDR range . The security group then allows your function to access resources within your  vpc . Could be done via the cli and also the console 
+
+### Step Functions : 
+- Orchestratoin of your serverless applications 
+- Manage the logic of your application including sequencing , error handling and retry logic , so your application executes in order , and as expected 
+- Also logs every step . Easy to debug 
