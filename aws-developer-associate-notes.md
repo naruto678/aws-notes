@@ -248,6 +248,7 @@ ___
 - S3 Glacier and S3 Galcier deep archive 
 - Intelligent tiering 
 - Relative costs 
+- Glacier Instant Retrieval (within millisseconds) , Glacier Flexible Retrieval (within hrs/mins) 
 
 ### S3 standard 
 
@@ -277,6 +278,8 @@ __S3 Standard > Intelligent-tiering >> All the infrequent >> Glacier deep archiv
 
  __For the infrequent access a fee will apply for the retrietval in-addition to storage__
 
+### Glacier Flexible Retrieval
+- Long term archiving data that needs to be ocassionally used within few hours or minutes . Minimum storage duration 90 days 
 
 ### Important points 
     
@@ -315,4 +318,29 @@ ___
 - __S3TransferAcceleration__:
   - When enabled users instead of uploading/downloading files to/from s3 will be doing it to the edge location and then the edge location uploads it optimally . Much faster
 
+##  Configuring cloud front with origin access identity 
+___
+- All requests should come to the cf-origin from cloud front . No request should reach directly to the origin 
+- Create a s3 bucket with static web hosting enabled . Disable the public access . Create a cloud front. Add the url . Make sure to select the (origin access identity) and click on update bucket policy to
+  allow access to cloud front. if you want dns then add a new record/alias to route53 and map it to your cloudront . 
 
+### Understanding Cloudfront allowed methods: 
+
+- You set what http methods that are allowed in cloudfront 
+
+### Serverless : 
+- Lambda 
+- SQS
+- SNS
+- API Gateway 
+- DynamoDB
+- S3
+
+#### Lambda : 
+- First 1 million requets per month are free and then 0.20 $ per month per 1 million requests 
+- Duration : Charged in milliseconds  
+- Price per gb . Charged 0.00001667 per gb second . First 400, 0000 Gb second per free 
+- Lambda concurrent execution limit :
+  - There is a limit to the number of concurrent executions across all the functions in a given region per account . 1000 concurrent execution is the limit 
+  - Contact aws support to increase the limit 
+  - you get 429 http error 
