@@ -366,4 +366,18 @@ ___
     - Synchronous workflows 
     - Asynchronous workflows 
 ### X-Ray 
--  
+- will help you to debug your applications 
+-  X-ray service map provides end to end view of requests as they travel through the map 
+- X-Ray integrates with many aws services like DynamoDB , lambda and Api gateway 
+- We can also instrument our own applications to send data to X-ray 
+- Applications running on EC2 , Elastic bean stalk environment and on-premises systems and ECS 
+- for ECS, run the x-ray daemon in its own docker image , running alongside your applicaiton 
+- if we want to record application specific information in the form of key-value pairs , use annotations to add user defined keyvalue pairs to your X-ray data, 
+  - This allows us to filter , index and search within x-ray
+### Api gateway 
+-  we can import our own apis to api gateway using swagger
+-  suppoorting soap (simple object access protocol) . We can configure api gateway as a soap web service passthrough 
+-  Also we can transform the json to xml if you want to use soap 
+#### Api gateway caching and throttling 
+- caches your endpoints resources  for a default ttl of 300 seconds and returns the cached response 
+- default limit 10K rps and 5k concurrent requests per region  . if we exceed the limit then you get 429 error 
