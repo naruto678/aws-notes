@@ -476,3 +476,6 @@ ___ You can use the batch-write-item api__ command to write all the items to a t
 - aws sdk automatically retrries the requests until successful 
 - if we are not using aws sdk , then we can use the exponential backoff . Requester uses progressively longer waits before retrying again for flow control 
 - if after a min this doesn't work , then the request size may be exceeding the throughput for your read/write capacity 
+
+
+
