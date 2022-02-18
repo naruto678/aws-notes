@@ -442,12 +442,37 @@ ___
 ### Dynamo Db on demand capacity vs provisioned capacity 
 - Charges wil apply for read write and storage data 
 - Dynamo db instantly scales up and down based on the activity of your application . Great for unpredictable workloads 
-- When we want to pay what you use 
+- When we want to pay what you use
 - Spiky , short-lived peaks 
 - Might be difficult to predict the cost that I might be paying 
 - Use provisioned capacity when your worklaod is predictable 
--
+
+___ You can use the batch-write-item api__ command to write all the items to a table in dynamo Db from a file 
+
 ### Dynamodb acceleartor(DAX)  
 - is a fully -managed , clustered in-memory cache for DynamoDb 
 - Delivers upto 10X read performance imporovement. Microsecond performance for millions of requests per second 
+- It is a write-through caching service . Data is written to the cache  and the backedn table at the same time 
+- This allows you to point your dynamoDb apoi calls at the dax cluster 
+- if the item you are querying is in the cache table (cache hit) , DAX returns the resutl 
+- else dax performs a eventually consistent GETItem operation against DynamoDB and returns the result of the API call 
+- May be able to reduce the provisioned read capacity on your table and save money on your AWS bill 
+- Not suitable for write intensive applications . 
+### DynamoDB TTL: 
+- Defines an expiray time for your data . Expired items are marked for delete 
+- Items get expired and get deleted within the next 48 hours 
+- use the TTL attribute and set it to the attrite that you would be using for defining expiration 
+### DynamoDB streams 
+- time ordered sequence of item level modifications (e.g insert, update, delete) 
+- puts all of them at logs that are encrypted and stored for 24 hours 
+- typically stremas can be used for auditing or replaying of transactions . but mostly used for triggering other services based on the chages 
+- dedicated endpoint for accessing it 
+- min amount of data is the primary key that was modified ,deleted 
+- also can capture the state of the item before and after change 
+- Also can be used to replicate data across multiple tables 
 -
+### Provisioned throughput exceeded and exponential backoff
+- provisioned throughput exceeded is seen when your request rate is too high for the read write capacity provisioned on your DynamoDb table 
+- aws sdk automatically retrries the requests until successful 
+- if we are not using aws sdk , then we can use the exponential backoff . Requester uses progressively longer waits before retrying again for flow control 
+- if after a min this doesn't work , then the request size may be exceeding the throughput for your read/write capacity 
