@@ -381,3 +381,73 @@ ___
 #### Api gateway caching and throttling 
 - caches your endpoints resources  for a default ttl of 300 seconds and returns the cached response 
 - default limit 10K rps and 5k concurrent requests per region  . if we exceed the limit then you get 429 error 
+
+
+### Dynamo DB 
+- Consisitent ,single-digit ms latency at any scale 
+- Great fit for mobile , web , gaming 
+- Integrates very well with lambda and configured for auto-scale 
+- Stored on SSD which help to give fast read and writes and spread across 3 geographically data centers 
+- 2 consistency models : Eventually consistent reads and strongly conssitent reads 
+  - __Eventaully consistent reads__ :  consistency is reached withing a second . Best for read performane 
+  - __Strongly consistent reads__ : Always reflect successful writes. Writes are reflected across all 3 locations at one. Best for strongly consistent performance 
+  - Also supports ACID transactions now-a-days 
+- Contains __2__ types of __primary keys__
+  - __Partition Key__  : a unique attribte for example a customer -id, product_id, email address. This is called partition key because this is used as an input to an internal hash function which determines the partition 
+    - or the physical location on which the data is stored  
+  - __Composite Key(Partition key +sort key )__ :  The sort key is usually the timestamp which is used to make the partition key if your partiion key is not unique 
+  -
+#### Dynamo DB controlling access 
+- authentication and access control is managed with IAm 
+- IAm permissions : Create iam users within your AWS account with specific permissions to access and create DynamoDB tables 
+- also can create IAM roles , enabling temporary access to DynamoDB
+- __Restricting user access__ : IAM condition to restrict user access to only their own records . 
+  - Use the condition parameter dyanmodb:LeadingKeys to allows users to access only the items where the partition key matches their user_id 
+- __Secondary index__ : Dynamo db allows you to run a query on non-primary key attributes using global secondary indexes and loacl secondary indexes 
+  - local secondary index; uses the same partiion key + a different sort to your table. Must be created when you create your table 
+  - global seconday index: allows you to select a completely different partition key and a sort key . Can be created any time time , so more flexible
+#### Scan vs Query api calls 
+- __Query__ : Find items in a table based on the primary key attribute and a  distinct value to search for . Ex - selecting an item with user_id=12 will give you all the attributes of that item 
+  - use an optional sort keya name and value to refine your results 
+  - you can use the projection expression parameter to return only specific attributes 
+  - Resutls are always sorted by the sort key . Reverse the order by settign ScanIndexForward parameter to False 
+  - by default all queries are eventually consistent
+- __Scan__ : Examines every single items in a table . Use proejction experssion parameter to refine all the attributes that you are looking for 
+- __Query__ is faster than a __Scan__ . 
+- __Improving performance__
+  -  A scan operation on a large table can use up the provisioned throughput for a large table in just a single operation 
+  - Set a smaller page size . Runnign a large number of smaller operations will allow other request to succeed without throttling
+  - Design your tables such that you can use the __Query, Get or BatchGetItem__ api's 
+  - Use parallel scans'. By logically dividing a table or an index into segments and then scanning each segment in parallel
+  - also you can isolate scan operations to specific tables and segregate thme from your mission critical traffic
+___
+
+### Using Dynamodb api calls 
+-  create-table 
+-  put-item 
+-  get-item : retursn 
+-  update-item allows you to edit the attributes of an existing item 
+-  update-table : allows you to modify a table 
+-  list-tables : retunrs a list of tables 
+-  describe-table 
+-  scan - reads every item in a table and then use a filter experssion to remove the unwanted ones 
+-  query 
+-  delete-item 
+-  delete-table 
+### Dynamodb privisioned throughput 
+- measured in capacity units
+- when you create a table you specify your requirements in terms of read capacity and write capacity units 
+- 1 write capacity =1 * 1Kb write per second 
+- 1 read capacity = 1 strongly consitent read of 4 kb per second or 2* eventually consistent reads of 4Kbper second(default)
+### Dynamo Db on demand capacity vs provisioned capacity 
+- Charges wil apply for read write and storage data 
+- Dynamo db instantly scales up and down based on the activity of your application . Great for unpredictable workloads 
+- When we want to pay what you use 
+- Spiky , short-lived peaks 
+- Might be difficult to predict the cost that I might be paying 
+- Use provisioned capacity when your worklaod is predictable 
+-
+### Dynamodb acceleartor(DAX)  
+- is a fully -managed , clustered in-memory cache for DynamoDb 
+- Delivers upto 10X read performance imporovement. Microsecond performance for millions of requests per second 
+-
