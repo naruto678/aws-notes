@@ -447,7 +447,7 @@ ___
 - Might be difficult to predict the cost that I might be paying 
 - Use provisioned capacity when your worklaod is predictable 
 
-___ You can use the batch-write-item api__ command to write all the items to a table in dynamo Db from a file 
+  ___You can use the batch-write-item api___ command to write all the items to a table in dynamo Db from a file 
 
 ### Dynamodb acceleartor(DAX)  
 - is a fully -managed , clustered in-memory cache for DynamoDb 
@@ -458,10 +458,12 @@ ___ You can use the batch-write-item api__ command to write all the items to a t
 - else dax performs a eventually consistent GETItem operation against DynamoDB and returns the result of the API call 
 - May be able to reduce the provisioned read capacity on your table and save money on your AWS bill 
 - Not suitable for write intensive applications . 
+
 ### DynamoDB TTL: 
 - Defines an expiray time for your data . Expired items are marked for delete 
 - Items get expired and get deleted within the next 48 hours 
 - use the TTL attribute and set it to the attrite that you would be using for defining expiration 
+
 ### DynamoDB streams 
 - time ordered sequence of item level modifications (e.g insert, update, delete) 
 - puts all of them at logs that are encrypted and stored for 24 hours 
@@ -475,7 +477,27 @@ ___ You can use the batch-write-item api__ command to write all the items to a t
 - provisioned throughput exceeded is seen when your request rate is too high for the read write capacity provisioned on your DynamoDb table 
 - aws sdk automatically retrries the requests until successful 
 - if we are not using aws sdk , then we can use the exponential backoff . Requester uses progressively longer waits before retrying again for flow control 
-- if after a min this doesn't work , then the request size may be exceeding the throughput for your read/write capacity 
+- if after a min this doesn't work , then the request size may be exceeding the throughput for your read/write capacity
 
 
-
+### KMS service 
+- makes it easy for you  to create and control the encryption keys used to encrypt the data 
+- integrates with aws services 
+- simple to encrypt your data using keys that we manage 
+  - use when you are dealing with sensitive information 
+  -  common integrations include s3 , dyanmodb , rds and lambda, Ebs, Elastic file system , cloud trail , efs , developer tools 
+- CMK : Customer Master key is capable for encrypt/decrypt  data upto 4kb. It is used to generate/encrypt/decrypt your data key and then you can use the data key to encyrpt/decrypt datakey 
+- ___CMK Demo___  : go to KMS under IAM and create the key .
+- KMS is a regional service 
+- Can select any of the following: 
+  - Get from KMS
+  - Get from external store 
+  - Cloud HSM(hardware security module)  store : get your own single-tenant hardware to generate keys 
+- Cannot export KMS keys
+### Understanding KMS api calls 
+- encrypt
+- decrypt 
+- re-encrypt
+- enable-key-rotation 
+- also can generate a data key  -very useful as your data remains in the ec2 instance and does not need to be sent over the network to be encrypted/decrypted 
+-
