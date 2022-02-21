@@ -500,4 +500,44 @@ ___
 - re-encrypt
 - enable-key-rotation 
 - also can generate a data key  -very useful as your data remains in the ec2 instance and does not need to be sent over the network to be encrypted/decrypted 
--
+### SQS 
+- poll based service not like SNS which is a push-based service 
+- Messages that are picked up by the poller are marked as invisible , there is a visibility timeout where the messages that are currently processing by the poller are not visible to the other instances of the poller 
+- Can contain upto 256 KB of text 
+- Types: 
+  - Standard queues : Best effort orderign , unlimited number of transaxtions and gurantee thtn a message is delivered at least once , occassional duplicates 
+  - FIFO queue :  EXactly once processing : limit of 300 transactions per second , no duplicates introduced. Good for banking transacations 
+- ___SQS Settings___: 
+  - Visibility timeout :  default timeout is 30 seconds .  max time is 12 hours 
+  - ShortPolling
+    - Returns a response immmediately even if the message queue being polled is empty . can result in lot of empty responses if nothing in the queue . Will still need to pay for these responses 
+  - Long Polling : 
+    - Periodicaly pools the queue. Does not returns a message until a message queue or long poll times ou t
+    - generally preferable to short polling 
+### SQS Delay queues: 
+- allow the user to postpone the delivery of the new messages to a queue for a fixed number of seconds 
+- Messages sent to the queue remain invisible to consumers for the duration of the delay period 
+- Default delay is 0 and max is 90 seconds
+- For standard queues this does not affect the messages already in the queue but for the FIFO queuee, this also effects the delay of messages already in the queue 
+### Best practice for managing large SQS messages using S3: 
+- Use s3 to store the messages 
+- Can use the amazon SQS extended client librray for java to manage them 
+- sqs client library for java allows you to 
+  - Specify that messages are always stored in S3 or only messages > 256 KB
+  - Send a message which refernces a message object stored in s3 
+  - get a message object fromi s3 
+  - delete a message object from s3
+  -
+  -
+### SNS 
+- Can use to create push notifications 
+- uses a pub-sub model : Applications can publish messages to a topic and subscribers can receive messages to a topic
+- Durable ; - are stored redundanlty stored in multiple A-Z. pay-as-you 
+- highly available 
+### Kinesis : 
+- A family of services which enables you to collect, process, and analyze streaming data in real-time . Allows you to build custom applications for your own business needs
+-  Kinesis Streams: Video and Data streams 
+-  Kinesis Firehose : Do ETL on data-streams into  AWS data stores to enable near-real-time analytics with BI tools .
+-  Kinesis DAta analytics : Do ETL on data and store in AWs data stores 
+-  Inside kinesis streams, data is stored in shards. Each shard has a fixed uniit of capacity . . 5 reads per second with total read of 2mbps adn 1000 writes per second with total of 1mb per second  
+- Firehose does not have shards . there is no retention . Messages coming in will either be pickec up by the consuming lamba or stored in one of the aws data stores that we need to configure 
