@@ -540,4 +540,31 @@ ___
 -  Kinesis Firehose : Do ETL on data-streams into  AWS data stores to enable near-real-time analytics with BI tools .
 -  Kinesis DAta analytics : Do ETL on data and store in AWs data stores 
 -  Inside kinesis streams, data is stored in shards. Each shard has a fixed uniit of capacity . . 5 reads per second with total read of 2mbps adn 1000 writes per second with total of 1mb per second  
-- Firehose does not have shards . there is no retention . Messages coming in will either be pickec up by the consuming lamba or stored in one of the aws data stores that we need to configure 
+- Firehose does not have shards . there is no retention . Messages coming in will either be pickec up by the consuming lamba or stored in one of the aws data stores that we need to configure
+- Resharding , when the data loads increases you can increase the number of shards, that is known as resharding  
+- The Kinesis client library can keep track of all the current shards in the streams and also discover new shards
+- Internally the kinesis client library has record processors for each of the shards . 
+- for ex: if you have 2 consumers it will load balance and create half the processors on one instance and half on the other instance 
+### Demo-for setting up with kinesis
+____
+- Create a ec2 instance containing producer/consumer applications that connect to kinesis data streams . Consumer should get the data from the shards and put it into the dynamo db table 
+### Elastic BeanStalk 
+- Deploy and scale web applications without worrying about provisioning ec2 instances yourself 
+- All at once deployment : Deploys to all hosts concurrently 
+- Rolling deployment : Deploys the new version in batches 
+- Rolling with additional batch : Launches an additional batch of isntances . Then deploys the new version in batches
+- Immutable deployment : Deploys the new version to a fresh group of instances before deleting the old instances 
+- Traffic splitting : New version is installed in new instances and just forwards a percentage of the incoming traffic to the new versions
+-
+### Advanced Elastic Beanstalk 
+- Customizing Elastic Beanstalk env's 
+  - Config will be different fro amazon linux 2 env and linux 1
+  - for linux 1 yaml/json config iles can be used . they must be inside a .config extension and must be insdie a folder called .ebxtensions in the top-level directory of your applicaiton source bundle
+  - for linux 2 we can use Builfile, Procfile and platform hooks to configure and run custom code 
+    - Build files : for commands that run for short time periods and then exit upon task completion 
+    - ProcFile : Long running application processes . 
+    - Platform Hooks : Custom scripts or executables that we would like Elastic bean stalk to run at a choosen stage of the EC2 provisioning process 
+      - the files need to be stored in .platform/hooks/prebuild . Files  that you want elastic bean stalk to run before it builds , sets up and configures the application and web  server
+      - .platform/hooks/predeploy: Files that you want to run after it sets up the EC2 instance before deploying it to the final runtime location 
+      - .platform/hooks/postdeploy : Files that elastic bean stalk will run after deployment complete 
+      -
