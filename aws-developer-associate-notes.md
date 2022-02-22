@@ -566,5 +566,34 @@ ____
     - Platform Hooks : Custom scripts or executables that we would like Elastic bean stalk to run at a choosen stage of the EC2 provisioning process 
       - the files need to be stored in .platform/hooks/prebuild . Files  that you want elastic bean stalk to run before it builds , sets up and configures the application and web  server
       - .platform/hooks/predeploy: Files that you want to run after it sets up the EC2 instance before deploying it to the final runtime location 
-      - .platform/hooks/postdeploy : Files that elastic bean stalk will run after deployment complete 
-      -
+      - .platform/hooks/postdeploy : Files that elastic bean stalk will run after deployment completei
+      - Also has something called windows web application migration assistant that allows you to migrate a .NEt application or entiire website .NET migration assistant  
+### Quiz: 
+  - WE can use SNS queues to fan out a single message to multiple SQS queues
+  - Maximum retenion period for a SQS message is 14 days
+  - Use the ChangeMessageVisibility Api for extending the visibility timeout if the consumer is taking too long to process the queues
+
+###  CI/CD
+- Code Commit managed source control service 
+- Code Build : Compiles the source code and produces packages that are ready to deply 
+- Code Deploy 
+- Code Piplline : End to end soulution similar to Team city or jenkins 
+### tips kto pass 
+- Read the white papers
+  - Practicing CI/CD on aws 
+  - Blue/Green deployemnts on AWs 
+  - introduction to devops on AWS 
+  - Serverless architecture with lambda
+  - Docker on AWs : running containners in the cloud
+  - Running containerized microservices on AWS
+  - optimizing Enterprise economics with serveless architecture 
+  - AWS Security Best Practices 
+### Code Deploy 
+- In-place : The application is stopped on each instance and the new release is installed . Also known as a rolling update
+- Blue/Green deployment : New instances are provisioned and the new release is installed on teh new instances . Blue represents the active deployment , green is the new release
+- Diff 
+  - Capacity is reduced during the deployment vs No capacity reduction 
+  - Lambda is not supported vs gren instances can be created ahead of time
+  - Rolling back involves a re-deploy vs each to switch between old and new 
+  - Great when deploying for the first time vs (You pay for the 2 envs until you terminate the old servers )
+### Code Deploy AppSpec File 
