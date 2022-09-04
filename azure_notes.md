@@ -187,4 +187,74 @@ Storage account: Unique azure namespace which means that every object has its ow
   -  Each tenant can have one or more subscriptions 
   -  we can have multiple subscriptions to separate costs 
   -  if payment is not doe , all the resources and services associated with the subscription stop 
-- 
+- Multifactor authentication 
+- An extra layer of security using something you know, something you have and something you are
+-
+
+
+
+###Azure Solutions
+- Internet of things 
+- BigData 
+- Machine learning 
+- Serverless 
+- DevOps 
+
+- **InternetOfThings**
+- Azure IotHub : PaaS solution that provides more control over IoT data collection and processing
+- IoT Central : SaaS solution that provides pre-made IoT daashboards to get set up quickly
+- Azure Sphere : An all-in-one solution for IoT devices on azure . 
+  - you can only use hardware and chipsets certified by Microsoft for use on Azure 
+  - Specialized security service that manages maintainence updates and general control 
+  - Custom made for Azure Sphere devices . Connects to The Sphere security service 
+- **BigData**
+  -  DataLake analytics 
+    - A data lake is very large body of data 
+    - Parallel processing 
+    - servers to go 
+  - HDInsights
+    - Includes hadoop , spark and kafka 
+  - Databricks 
+    - based on apache spark , a distributed cluster-computing framework 
+    - Integrates with other azure storage devices 
+    - Run & process a dataset on many computers simulataneously 
+    - Databricks provides all the computing power 
+  - Azure Synapse Analytics
+    - Azure's data warehouse offering 
+    - Used to be Azure SQL Data warehouse 
+    - used for reporting and data analysis 
+    - Only limited by your scope
+    - Provides Azure Synapse language
+
+
+- **Machine Learning** 
+  - Models\ Knowledge Minning(using azure search to find existing insights in your data. File relationships, geography conneections and more)  
+  - Built-in-apps 
+  - Azure Bot service 
+    -  Code or visual
+    -  ADD nltk 
+    -  Branding 
+    -  Integration 
+  - Azure Cognitive service 
+    - Vision 
+    - decision 
+    - Speech 
+- **Serverless** 
+  - Azure Functions (Basic Compute) 
+  - Logic app 
+    - Connect systems
+    - Automation : A lot of ways to schedule , automate and orchestrate tasks and processes 
+    - Quick start: 
+  - Event Grid
+    - it is a routing service for sending and receiving events between applications 
+    - No management of infrastructure components . serverless 
+    - ease of use : event grid makes complex cloud architecture simpler
+  - DevOps
+    - Azure boards 
+    - Azure Pipelines 
+    - Azure repos 
+    - Azure test plans 
+    - Azure artifacts 
+    - Azure DevTest Labs
+    - GitHub and github actions 
+    -
