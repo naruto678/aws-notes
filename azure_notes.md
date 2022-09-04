@@ -110,5 +110,81 @@
     - Internal networks : A load balancer works well with internal applications 
     - Port forwarding : Traffic can be forwarded toa  specific machine in the backend pool 
     - Outbound traffic: Allow outbound connectivity for backend pool vm's 
-- Vpn Gateway: 
-  -  
+- **Vpn Gateway**: 
+  -  vpn gateways are instrumental in a hybrid architecture 
+  -  a vpn gateway is a specifiv VNet gateway. It consists of 2 or more dedicated vm's
+  -  Vnet gateway + vpn becomes a vpn gateway 
+  -  sends encrypted data betweeen azure and on premise network 
+  -  Azure gateway subnet, secure tunnel and on-premisse gateway makes up a VPN gateway scenario 
+  -  1vpn gateway + 1 on premise vpn that can accept encrypted message makes up for a site-site connection 
+  -  There can be multi -site connection 
+- **Application Gateway**
+  - An application gateway is a higher level load balancer 
+  - it works on the http request of the traffic,instead of the IP address adn port
+  - Traffic from specific web address can go to a specific machine
+  - is a fit for most azure services
+  - Supports auto scaling , end-to-end encryption , zone redundancy and multi-site hosting
+- **CDN**
+  - Better performacne 
+  - Scaling 
+  - Distribution : Edge servers will server request and will protect your backend servers from more requests
+  - Origin server: the original locaiotn of the files such as web location 
+- ** Express route**
+  -  if you need a  high bandwidth, low-latency, secure connection between your on premise service and azure service then this is jus tfor you 
+
+
+
+
+
+###Storage
+  - Blob
+  - Disk Storage 
+  - file 
+  - Archive 
+
+Storage account: Unique azure namespace which means that every object has its own web address 
+
+
+### Databases
+-  Cosmos DB
+-  Azure SQL 
+-  MySQL 
+-  PostgreSQL 
+-  DataMigration service 
+
+- Cosmos DB 
+  - Ability to be global from the start 
+  - Synchronization : Traditional databases weren't cloud enabled could be very difficult to set up across multiple regions . Azure takes care of it all using cosmos
+  - One click to add regions and azure maintains that they are synchronized 
+  - Provides single digit millisecond latency 
+  - Lowest price . 
+  - Becomes expensive as it grows 
+- Azure SQL ( microsoft sql server managed) 
+  - SQL database vs SQL managed instance 
+  -  Recovery from automated backups vs Recovery from automated backups and full SQL backups 
+  -  Geo-replication vs no geo-replication 
+  -  Autoscale supported in serverless model vs no autoscale
+  -  Automatic tuning vs no automatic tuning
+  -  No SQL server profiler vs SQL server profiler 
+  -  no SQL server agent vs SQL server agent 
+
+
+
+###Authentication and authorization 
+- Identity services 
+- Azure Active Directory 
+- MFA 
+- SSO 
+
+
+- **Azure Active Directory** 
+  - Active directory was designed for traditional office use with computers and printers
+  -  AAD is mandatory . A tenant represents an organization . It is the dedicated instance of AAD that an organization receives when signing up for azure 
+  -  Each user in azure can be a member or guest of up to 500 azure  AD tenants . It is common for a user to be a user of one tenant and a guest of another tenant 
+  -  AAD helps you maintain hybrid cloud architecture 
+- **Subscription** 
+  -  All resources within a subscription are billed together . It is a billing entity 
+  -  Each tenant can have one or more subscriptions 
+  -  we can have multiple subscriptions to separate costs 
+  -  if payment is not doe , all the resources and services associated with the subscription stop 
+- 
